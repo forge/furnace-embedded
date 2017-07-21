@@ -29,6 +29,7 @@
       <maven.compiler.target>1.8</maven.compiler.target>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <version.wildfly-swarm>2017.7.0</version.wildfly-swarm>
+      
       <version.forge>3.7.2-SNAPSHOT</version.forge>
    </properties>
    <dependencies>
@@ -53,16 +54,9 @@
       </dependency>
 
       <dependency>
-         <groupId>io.openshift.launchpad</groupId>
-         <artifactId>launchpad-addon</artifactId>
-         <version>9-SNAPSHOT</version>
+         <groupId>org.jboss.forge.addon</groupId>
+         <artifactId>ui-example</artifactId>
          <classifier>forge-addon</classifier>
-         <exclusions>
-            <exclusion>
-               <groupId>org.jboss.resteasy</groupId>
-               <artifactId>resteasy-client</artifactId>
-            </exclusion>
-         </exclusions>
       </dependency>
 
       <dependency>

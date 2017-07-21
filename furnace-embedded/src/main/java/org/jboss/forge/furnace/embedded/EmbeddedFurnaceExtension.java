@@ -15,6 +15,7 @@ import java.util.Enumeration;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
 import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 
 import org.jboss.forge.furnace.container.simple.Service;
@@ -28,6 +29,22 @@ import org.jboss.forge.furnace.container.simple.lifecycle.SimpleSingletonService
  */
 public class EmbeddedFurnaceExtension implements Extension
 {
+   private String threadName;
+
+   /**
+    * @see org.jboss.forge.addon.ui.impl.extension.AnnotatedCommandExtension.observeAnnotationMethods(ProcessAnnotatedType<T>,
+    *      BeanManager)
+    */
+   public void changeThreadName(@Observes BeforeBeanDiscovery event)
+   {
+      this.threadName = Thread.currentThread().getName();
+      Thread.currentThread().setName("org.jboss.forge.furnace.container:embedded,1.0.0.Final");
+   }
+
+   public void revertThreadNameChange(@Observes AfterBeanDiscovery event)
+   {
+      Thread.currentThread().setName(threadName);
+   }
 
    public void registerSimpleServices(@Observes AfterBeanDiscovery event, BeanManager beanManager)
    {
