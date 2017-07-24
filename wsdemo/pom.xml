@@ -30,12 +30,13 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <version.wildfly-swarm>2017.7.0</version.wildfly-swarm>
       
-      <version.forge>3.7.2-SNAPSHOT</version.forge>
+      <version.forge>3.7.2.Final</version.forge>
    </properties>
    <dependencies>
       <dependency>
          <groupId>javax</groupId>
          <artifactId>javaee-api</artifactId>
+         <version>7.0</version>
          <scope>provided</scope>
       </dependency>
       <dependency>
@@ -74,12 +75,6 @@
    </dependencies>
    <dependencyManagement>
       <dependencies>
-         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-         </dependency>
          <dependency>
             <groupId>org.wildfly.swarm</groupId>
             <artifactId>bom-all</artifactId>
