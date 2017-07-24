@@ -58,53 +58,6 @@
          <artifactId>ui-example</artifactId>
          <classifier>forge-addon</classifier>
       </dependency>
-
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>ui-impl</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>dependencies-impl</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>maven-impl</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>maven-impl-projects</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>projects-impl</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>facets-impl</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>convert-impl</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>resources-impl</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.forge.addon</groupId>
-         <artifactId>environment-impl</artifactId>
-         <version>${version.forge}</version>
-      </dependency>
       
       <dependency>
          <groupId>org.jboss.forge.furnace.container</groupId>

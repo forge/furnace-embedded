@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.logging.Logger;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
@@ -29,6 +30,8 @@ import org.jboss.forge.furnace.container.simple.lifecycle.SimpleSingletonService
  */
 public class EmbeddedFurnaceExtension implements Extension
 {
+   private static final Logger log = Logger.getLogger(EmbeddedFurnaceExtension.class.getName());
+
    private String threadName;
 
    /**
@@ -60,7 +63,7 @@ public class EmbeddedFurnaceExtension implements Extension
                String line;
                while ((line = br.readLine()) != null)
                {
-                  System.out.println("*************************** REGISTERING " + line);
+                  log.fine("Registering service: " + line);
                   try
                   {
                      Class<?> type = Class.forName(line);
@@ -95,7 +98,7 @@ public class EmbeddedFurnaceExtension implements Extension
                String line;
                while ((line = br.readLine()) != null)
                {
-                  System.out.println("*************************** REGISTERING SINGLETON: " + line);
+                  log.fine("Registering singleton service: " + line);
                   try
                   {
                      Class<?> type = Class.forName(line);
