@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
    <parent>
       <groupId>org.jboss</groupId>
       <artifactId>jboss-parent</artifactId>
@@ -8,7 +7,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.jboss.forge.furnace</groupId>
    <artifactId>furnace-embedded</artifactId>
-   <version>0.0.1-SNAPSHOT</version>
+   <version>1.0.0.Alpha1</version>
 
    <name>Furnace - Embedded</name>
    <description>Run Furnace inside a single CDI container/classloader</description>
@@ -134,7 +133,7 @@
                               </goals>
                            </pluginExecutionFilter>
                            <action>
-                              <ignore></ignore>
+                              <ignore />
                            </action>
                         </pluginExecution>
                      </pluginExecutions>
@@ -149,7 +148,7 @@
       <connection>scm:git:git://github.com/forge/furnace-embedded.git</connection>
       <developerConnection>scm:git:git@github.com:forge/furnace-embedded.git</developerConnection>
       <url>http://github.com/forge/furnace-embedded</url>
-      <tag>HEAD</tag>
+      <tag>1.0.0.Alpha1</tag>
    </scm>
 
    <distributionManagement>
