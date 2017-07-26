@@ -13,9 +13,13 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
 
 import org.jboss.forge.furnace.Furnace;
+import org.jboss.forge.furnace.container.simple.EventListener;
 import org.jboss.forge.furnace.embedded.LocalLiteral;
 import org.jboss.forge.furnace.embedded.impl.EmbeddedAddon;
 import org.jboss.forge.furnace.event.PostStartup;
@@ -28,6 +32,10 @@ import org.jboss.forge.furnace.event.PostStartup;
 public class SimpleContainerInitializer
 {
    private final Logger log = Logger.getLogger(getClass().getName());
+
+   @Inject
+   @Any
+   private Instance<EventListener> eventListeners;
 
    /**
     * Initializes the SimpleContainer
@@ -42,7 +50,9 @@ public class SimpleContainerInitializer
       PostStartup postStartup = new PostStartup(new EmbeddedAddon());
       SimpleContainer.start(postStartup.getAddon(), furnace);
       beanManager.fireEvent(postStartup);
-      beanManager.fireEvent(postStartup, new LocalLiteral());
+      LocalLiteral localLiteral = new LocalLiteral();
+      beanManager.fireEvent(postStartup, localLiteral);
+      eventListeners.forEach(listener -> listener.handleEvent(postStartup, localLiteral));
       log.info("Simple Container succesfully initialized!");
    }
 }

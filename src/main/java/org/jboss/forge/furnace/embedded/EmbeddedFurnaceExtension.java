@@ -49,72 +49,59 @@ public class EmbeddedFurnaceExtension implements Extension
       Thread.currentThread().setName(threadName);
    }
 
-   public void registerSimpleServices(@Observes AfterBeanDiscovery event, BeanManager beanManager)
+   public void registerSimpleServices(@Observes AfterBeanDiscovery event, BeanManager beanManager) throws Exception
    {
-      try
+      Enumeration<URL> resources = getClass().getClassLoader()
+               .getResources("/META-INF/services/" + Service.class.getName());
+      while (resources.hasMoreElements())
       {
-         Enumeration<URL> resources = getClass().getClassLoader()
-                  .getResources("/META-INF/services/" + Service.class.getName());
-         while (resources.hasMoreElements())
+         URL serviceUrl = resources.nextElement();
+         try (BufferedReader br = new BufferedReader(new InputStreamReader(serviceUrl.openStream())))
          {
-            URL serviceUrl = resources.nextElement();
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(serviceUrl.openStream())))
+            String line;
+            while ((line = br.readLine()) != null)
             {
-               String line;
-               while ((line = br.readLine()) != null)
+               log.fine("Registering service: " + line);
+               try
                {
-                  log.fine("Registering service: " + line);
-                  try
-                  {
-                     Class<?> type = Class.forName(line);
-                     event.addBean(new SimpleServiceBean<>(type));
-                  }
-                  catch (NoClassDefFoundError ncde)
-                  {
-                     // ignore
-                  }
+                  Class<?> type = Class.forName(line);
+                  event.addBean(new SimpleServiceBean<>(type));
+               }
+               catch (NoClassDefFoundError ncde)
+               {
+                  // ignore
                }
             }
          }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
       }
    }
 
    public void registerSimpleSingletonServices(@Observes AfterBeanDiscovery event, BeanManager beanManager)
+            throws Exception
    {
-      try
+      Enumeration<URL> resources = getClass().getClassLoader()
+               .getResources("/META-INF/services/" + SingletonService.class.getName());
+      while (resources.hasMoreElements())
       {
-         Enumeration<URL> resources = getClass().getClassLoader()
-                  .getResources("/META-INF/services/" + SingletonService.class.getName());
-         while (resources.hasMoreElements())
+         URL serviceUrl = resources.nextElement();
+         try (BufferedReader br = new BufferedReader(
+                  new InputStreamReader(serviceUrl.openStream())))
          {
-            URL serviceUrl = resources.nextElement();
-            try (BufferedReader br = new BufferedReader(
-                     new InputStreamReader(serviceUrl.openStream())))
+            String line;
+            while ((line = br.readLine()) != null)
             {
-               String line;
-               while ((line = br.readLine()) != null)
+               log.fine("Registering singleton service: " + line);
+               try
                {
-                  log.fine("Registering singleton service: " + line);
-                  try
-                  {
-                     Class<?> type = Class.forName(line);
-                     event.addBean(new SimpleSingletonServiceBean<>(type));
-                  }
-                  catch (NoClassDefFoundError ncde)
-                  {
-                     // ignore
-                  }
+                  Class<?> type = Class.forName(line);
+                  event.addBean(new SimpleSingletonServiceBean<>(type));
+               }
+               catch (NoClassDefFoundError ncde)
+               {
+                  // ignore
                }
             }
          }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
       }
    }
 
