@@ -7,7 +7,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.jboss.forge.furnace</groupId>
    <artifactId>furnace-embedded</artifactId>
-   <version>1.0.0.Alpha1</version>
+   <version>1.0.0-SNAPSHOT</version>
 
    <name>Furnace - Embedded</name>
    <description>Run Furnace inside a single CDI container/classloader</description>
@@ -148,7 +148,7 @@
       <connection>scm:git:git://github.com/forge/furnace-embedded.git</connection>
       <developerConnection>scm:git:git@github.com:forge/furnace-embedded.git</developerConnection>
       <url>http://github.com/forge/furnace-embedded</url>
-      <tag>1.0.0.Alpha1</tag>
+      <tag>HEAD</tag>
    </scm>
 
    <distributionManagement>
