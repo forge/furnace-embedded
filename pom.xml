@@ -2,7 +2,7 @@
    <parent>
       <groupId>org.jboss</groupId>
       <artifactId>jboss-parent</artifactId>
-      <version>24</version>
+      <version>25</version>
    </parent>
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.jboss.forge.furnace</groupId>
@@ -28,7 +28,7 @@
    </developers>
 
    <properties>
-      <version.furnace>2.26.2.Final</version.furnace>
+      <version.furnace>2.27.0.Final</version.furnace>
    </properties>
    <dependencyManagement>
       <dependencies>
