@@ -10,7 +10,7 @@ package org.jboss.forge.furnace.embedded.impl;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
@@ -23,7 +23,7 @@ import org.jboss.forge.furnace.services.Imported;
 public class ImportProducer
 {
    @Produces
-   @ApplicationScoped
+   @Dependent
    @SuppressWarnings("unchecked")
    public <T> Imported<T> produceImported(InjectionPoint injectionPoint, EmbeddedAddonRegistry registry)
    {
