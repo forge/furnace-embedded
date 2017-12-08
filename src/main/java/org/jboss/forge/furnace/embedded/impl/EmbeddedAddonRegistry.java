@@ -7,15 +7,11 @@
 
 package org.jboss.forge.furnace.embedded.impl;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
 import org.jboss.forge.furnace.addons.Addon;
@@ -120,42 +116,4 @@ public class EmbeddedAddonRegistry implements AddonRegistry
    {
       return eventManager;
    }
-
-   @Produces
-   @SuppressWarnings("unchecked")
-   public <T> Imported<T> produceImported(InjectionPoint injectionPoint)
-   {
-      Type type = injectionPoint.getAnnotated().getBaseType();
-
-      if (type instanceof ParameterizedType)
-      {
-         ParameterizedType parameterizedType = (ParameterizedType) type;
-
-         Type[] typeArguments = parameterizedType.getActualTypeArguments();
-         Class<T> importedType = null;
-         Type argument = typeArguments[0];
-         if (argument instanceof Class)
-         {
-            importedType = (Class<T>) argument;
-         }
-         else if (argument instanceof ParameterizedType)
-         {
-            Type rawType = ((ParameterizedType) argument).getRawType();
-            if (rawType instanceof Class)
-               importedType = (Class<T>) rawType;
-         }
-         else
-         {
-            throw new IllegalStateException("Cannot inject a generic instance of type " + Imported.class.getName()
-                     + "<?> without specifying concrete generic types at injection point " + injectionPoint + ".");
-         }
-         return getServices(importedType);
-      }
-      else
-      {
-         throw new IllegalStateException("Cannot inject a generic instance of type " + Imported.class.getName()
-                  + "<?> without specifying concrete generic types at injection point " + injectionPoint + ".");
-      }
-   }
-
 }
