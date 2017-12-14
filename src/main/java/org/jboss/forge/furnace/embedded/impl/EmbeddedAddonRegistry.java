@@ -8,7 +8,9 @@
 package org.jboss.forge.furnace.embedded.impl;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
@@ -35,6 +37,13 @@ public class EmbeddedAddonRegistry implements AddonRegistry
    @Inject
    Instance<Object> instances;
 
+   private final Set<Class<?>> serviceTypes = Collections.newSetFromMap(new ConcurrentHashMap<>());
+
+   public void registerServiceTypes(Set<Class<?>> types)
+   {
+      serviceTypes.addAll(types);
+   }
+
    @Override
    public String getName()
    {
@@ -49,7 +58,7 @@ public class EmbeddedAddonRegistry implements AddonRegistry
    @Override
    public Addon getAddon(AddonId id)
    {
-      return null;
+      throw new UnsupportedOperationException("getAddon is not supported in Embedded containers");
    }
 
    @Override
@@ -96,13 +105,20 @@ public class EmbeddedAddonRegistry implements AddonRegistry
    @Override
    public Set<Class<?>> getExportedTypes()
    {
-      return null;
+      return Collections.unmodifiableSet(serviceTypes);
    }
 
    @Override
+   @SuppressWarnings("unchecked")
    public <T> Set<Class<T>> getExportedTypes(Class<T> type)
    {
-      return null;
+      Set<Class<T>> result = new HashSet<>();
+      for (Class<?> serviceType : serviceTypes)
+      {
+         if (type.isAssignableFrom(serviceType))
+            result.add((Class<T>) serviceType);
+      }
+      return result;
    }
 
    @Override
