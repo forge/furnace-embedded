@@ -35,7 +35,6 @@ import org.jboss.forge.furnace.embedded.util.BeanManagerUtils;
 import org.jboss.forge.furnace.embedded.util.Types;
 
 /**
- *
  * @author <a href="mailto:ggastald@redhat.com">George Gastaldi</a>
  */
 public class EmbeddedFurnaceExtension implements Extension
@@ -47,7 +46,7 @@ public class EmbeddedFurnaceExtension implements Extension
 
    /**
     * @see org.jboss.forge.addon.ui.impl.extension.AnnotatedCommandExtension.observeAnnotationMethods(ProcessAnnotatedType<T>,
-    *      BeanManager)
+    * BeanManager)
     */
    public void changeThreadName(@Observes BeforeBeanDiscovery event)
    {
@@ -60,7 +59,7 @@ public class EmbeddedFurnaceExtension implements Extension
       Thread.currentThread().setName(threadName);
    }
 
-   public void registerSimpleServices(@Observes AfterBeanDiscovery event, BeanManager beanManager) throws Exception
+   public void registerSimpleServices(@Observes AfterBeanDiscovery event) throws Exception
    {
       Enumeration<URL> resources = getClass().getClassLoader()
                .getResources("/META-INF/services/" + Service.class.getName());
@@ -87,7 +86,7 @@ public class EmbeddedFurnaceExtension implements Extension
       }
    }
 
-   public void registerSimpleSingletonServices(@Observes AfterBeanDiscovery event, BeanManager beanManager)
+   public void registerSimpleSingletonServices(@Observes AfterBeanDiscovery event)
             throws Exception
    {
       Enumeration<URL> resources = getClass().getClassLoader()
@@ -117,8 +116,7 @@ public class EmbeddedFurnaceExtension implements Extension
    }
 
    // Needed for EmbeddedAddonRegistry.getExportedTypes
-   public void processExportedService(@Observes ProcessAnnotatedType<?> event) throws InstantiationException,
-            IllegalAccessException
+   public void processExportedService(@Observes ProcessAnnotatedType<?> event)
    {
       Class<?> type = event.getAnnotatedType().getJavaClass();
       if (!(Modifier.isAbstract(type.getModifiers()) || Modifier.isInterface(type.getModifiers())))
@@ -128,10 +126,17 @@ public class EmbeddedFurnaceExtension implements Extension
    }
 
    // Needed for EmbeddedAddonRegistry.getExportedTypes
-   public void processProducerHooks(@Observes ProcessProducer<?, ?> event, BeanManager manager)
+   public void processProducerHooks(@Observes ProcessProducer<?, ?> event)
    {
-      Class<?> type = Types.toClass(event.getAnnotatedMember().getJavaMember());
-      services.add(type);
+      try
+      {
+         Class<?> type = Types.toClass(event.getAnnotatedMember().getJavaMember());
+         services.add(type);
+      }
+      catch (IllegalArgumentException e)
+      {
+         log.log(Level.FINE, "Error while reading producer hook", e);
+      }
    }
 
    public void registerServicesInEmbeddedAddonRegistry(@Observes AfterDeploymentValidation event, BeanManager manager)
