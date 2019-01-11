@@ -1,4 +1,6 @@
 # furnace-embedded
+[![Build Status](https://travis-ci.org/forge/furnace-embedded.svg?branch=master)](https://travis-ci.org/forge/furnace-embedded)
+
 Run Furnace in a Flat classloader
 
 This project provides a Furnace implementation as a CDI extension and allows Forge addons that run in simple or CDI containers to be executed in a single classloader.
